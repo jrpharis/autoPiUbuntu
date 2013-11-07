@@ -2,7 +2,6 @@ import os
 import json
 import requests
 from requests.auth import HTTPBasicAuth
-import RPi.GPIO as io
 
 URL_ROOT = 'http://autopi.herokuapp.com/api/v1'
 prevLights = {}
@@ -11,7 +10,6 @@ prevEntrances = None
 
 def start(username,password):
 	print 'username: ' + username + ' password: ' + password
-	initIO()
 	auth=HTTPBasicAuth(username,password)
 	user = getUser(auth)
 	raspberryPi = getPi(user)
@@ -31,16 +29,16 @@ def updateLights(lights):
 		print gpioPin
 		print light['status']
 		if light['status'] == True:
-			io.output(gpioPin, io.HIGH)	
+			print 'Light turned on'
 		else:
-			io.output(gpioPin, io.LOW)
+			print 'Light turned off'
 
 def updateEntrances(entrances,auth,PiID):
 	global prevEntrances
 
 	statusValues = {1:True,0:False}
 
-	currentEntranceStatus = io.input(entrances['gpio'])
+	currentEntranceStatus = 0
 	print 'CurrentStatus'
 	print currentEntranceStatus
 	if currentEntranceStatus != prevEntrances:
@@ -90,11 +88,3 @@ def getEntrances(auth):
 
 
 	return entrances
-
-def initIO():
-	io.setmode(io.BCM)
-	io.setup(4, io.OUT)
-	io.setup(24, io.IN, pull_up_down=io.PUD_UP)
-	
-	
-	

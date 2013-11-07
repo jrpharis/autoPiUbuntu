@@ -10,7 +10,7 @@ def registerPi(username, password):
 	print('In registerPi')
 	auth = HTTPBasicAuth(username, password)
 
-	mac =1234999999999  # get_mac()
+	mac =123499999  # get_mac()
 	print('mac: ' + str(mac))
 
 	data = {'uuid': mac}

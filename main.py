@@ -81,16 +81,13 @@ if UserSaved(homepath) == True:
 	username = config.get('LoginInfo','username')
 	password = config.get('LoginInfo','password')
 
-	username ='test5'
-	password = 'test'
-	
 	print('Username: ' + username)
 	print('Password: ' + password)
 	
 	login_success = login(username,password)
 	print('Login: ')
 	print(login_success)
-	print login_success.json()
+	#print login_success.json()
 
 	if login_success.status_code not in [200,201]:
 		print('Login status code not in [200,201]')
